@@ -14,7 +14,13 @@
 
 int	ft_check_flags(char *format, int i)
 {
+	flags	flags;
 
+	if()
+	{
+
+	}
+	
 }
 
 int	ft_printf(const char *format, ...)
