@@ -50,7 +50,7 @@ typedef struct specifiers
 
 int	ft_printf(const char *format, ...);
 int	ft_check_flags(char *format, int i);
-int	ft_check_specifiers(char *format, int i);
-char	ft_print_text(char *string, va_list args);
+int	ft_check_specifiers(char *format, int i, specifiers s);
+char	ft_print_text(va_list args, specifiers s);
 
 #endif

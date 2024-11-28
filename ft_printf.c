@@ -12,15 +12,31 @@
 
 #include "ft_printf.h"
 
-char	ft_print_text(char *string, va_list args)
+char	ft_print_text(va_list args, specifiers s)
 {
+	int count;
 
+	//TODO: На данном этапе Count не будет ноль уже, надо доработать!
+	if(s.character)
+		ft_putchar_fd(va_arg(args, char), 1);
+	else if(s.string)
+		ft_putstr_fd(va_arg(args, const char *), 1);
+	else if(s.pointer)
+		ft_print_pointer((unsigned long int)va_arg(args, void *));
+	else if(s.decmal || s.integr)
+		ft_putnbr_fd(va_arg(args, int), 1);
+	else if(s.unsignedDes)
+		ft_putdec_nbr(va_arg(args, unsigned int), 1);
+	else if(s.unsigndLower)
+		ft_print_hexL(va_arg(args, unsigned int), 1);
+	else if(s.unsigndUpper)
+		ft_print_hexU(va_arg(args, unsigned int), 1);
+	else if(s.percentSign)
+		ft_putchar_fd('%', 1);
+	return(count);
 }
-
-int ft_check_specifiers(char *format, int i)
+int ft_check_specifiers(char *format, int i, specifiers s)
 {
-	specifiers	s;
-
 	while(format[i])
 	{
 		i++;
@@ -73,6 +89,7 @@ int	ft_check_flags(char *format, int i)
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
+	specifiers	s;
 	char	*copy;
 	int		i;
 
@@ -87,14 +104,21 @@ int	ft_printf(const char *format, ...)
 	{
 		if (copy[i] == '%' && copy[i] != '/0')
 		{
+			//TODO: count or i - how are they handled throught the code?
 			ft_check_flags(copy[i], i);
-			ft_check_specifiers(copy[i], i);
-			ft_print_text(copy, args);
+			ft_check_specifiers(copy[i], i, s);
+			ft_print_text(args, s);
 		}
-		else if(copy[i])
-			ft_print_text(copy, args);
+		else
+			ft_putstr_fd(copy, 1);
 		i++;
 	}
 	va_end(args);
 	return(i);
+}
+
+int	main()
+{
+	ft_printf("Text here %d\n", 46, 79, -234);
+	return(0);
 }
