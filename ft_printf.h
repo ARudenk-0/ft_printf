@@ -21,27 +21,36 @@
 
 typedef struct flags 
 {
-	//cspdiuxX%
 	//Any combo: -0. and the field minimum width
 	//Manage all flags: # + (including space!!)
 
-	char			character;
-	char			*string;
-	void			*pointer;
-	int				decimal;
-	int				integr;
-	unsigned int	unsigndLower;
-	unsigned int	unsigndUpper;
-	int				percentSign;
-
-	decimal = 0;
-	integr = 0;
-	unsigndLower = 0;
-	unsigndUpper = 0;
-	percentSign = 0;
-
+	int	minus;
+	int	zero;
+	int	dot;
+	//TODO: field minimun width!
+	int	hashtag;
+	int	space;
+	int	plus;
 } flags;
 
+typedef struct specifiers
+{
+	//cspdiuxX%
+	int	character;
+	int	string;
+	int	pointer;
+	int	decmal;
+	int	integr;
+	int	unsignedDes;
+	int	unsigndLower;
+	int	unsigndUpper;
+	int	percentSign;
+
+} specifiers;
+
 int	ft_printf(const char *format, ...);
+int	ft_check_flags(char *format, int i);
+int	ft_check_specifiers(char *format, int i);
+char	ft_print_text(char *string, va_list args);
 
 #endif

@@ -12,15 +12,62 @@
 
 #include "ft_printf.h"
 
+char	ft_print_text(char *string, va_list args)
+{
+
+}
+
+int ft_check_specifiers(char *format, int i)
+{
+	specifiers	s;
+
+	while(format[i])
+	{
+		i++;
+		if(format[i] == 'c')
+			s.character == 1;
+		else if(format[i] == 's')
+			s.string == 1;
+		else if(format[i] == 'p')
+			s.pointer == 1;
+		else if(format[i] == 'd')
+			s.decmal == 1;
+		else if(format[i] == 'i')
+			s.integr == 1;
+		else if(format[i] == 'u')
+			s.unsignedDes == 1;
+		else if(format[i] == 'x')
+			s.unsigndLower == 1;
+		else if(format[i] == 'X')
+			s.unsigndUpper == 1;
+		else if(format[i] == '%')
+			s.percentSign == 1;
+	}
+	return (i);
+}
+
 int	ft_check_flags(char *format, int i)
 {
 	flags	flags;
 
-	if()
+	while(format[i])
 	{
-
+		i++;
+		if(format[i] == '-')
+			flags.minus == 1;
+		else if(format[i] == '0')
+			flags.zero == 1;
+		else if(format[i] == '.')
+			flags.dot == 1;
+		//TODO: field minimum width
+		else if(format[i] == '#')
+			flags.hashtag == 1;
+		else if(format[i] == ' ')
+			flags.space == 1;
+		else if(format[i] == '+')
+			flags.plus == 1;
 	}
-	
+	return(i);
 }
 
 int	ft_printf(const char *format, ...)
@@ -36,12 +83,17 @@ int	ft_printf(const char *format, ...)
 	if(!copy || *copy == '\0')
 		return (0);
 	va_start(args, format);
-	while (format[i])
+	while (copy[i])
 	{
-		if (format[i] == '%' && format[i] != '/0')
-			ft_check_flags(format[i], i);
-		else
-			i++;
+		if (copy[i] == '%' && copy[i] != '/0')
+		{
+			ft_check_flags(copy[i], i);
+			ft_check_specifiers(copy[i], i);
+			ft_print_text(copy, args);
+		}
+		else if(copy[i])
+			ft_print_text(copy, args);
+		i++;
 	}
 	va_end(args);
 	return(i);
