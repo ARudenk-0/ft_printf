@@ -26,8 +26,6 @@ typedef struct flags
 
 	int	minus;
 	int	zero;
-	int	dot;
-	//TODO: field minimun width!
 	int	hashtag;
 	int	space;
 	int	plus;

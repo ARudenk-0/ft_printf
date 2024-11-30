@@ -35,7 +35,28 @@ char	ft_print_text(va_list args, specifiers s)
 		ft_putchar_fd('%', 1);
 	return(count);
 }
-int ft_check_specifiers(char *format, int i, specifiers s)
+
+int	ft_check_width(char *format, int i)
+{
+	int	width;
+
+	width = 0;
+	i++;
+	while(format[i] && format[i+1] != '.')
+	{
+		if(format[i] != '0' && (format[i] >= 48 && format[i] <= 57))
+		{
+			width = (width * 10) + (format[i] - '0');
+			i++;
+		}
+		else if(format[i] == '0')
+			width = (width * 10) + (format[i] - '0');
+	}
+	width = (width * 10) + (format[i] - '0');
+	return(i);
+}
+
+int	ft_check_specifiers(char *format, int i, specifiers s)
 {
 	while(format[i])
 	{
@@ -73,17 +94,15 @@ int	ft_check_flags(char *format, int i)
 			flags.minus == 1;
 		else if(format[i] == '0')
 			flags.zero == 1;
-		else if(format[i] == '.')
-			flags.dot == 1;
-		//TODO: field minimum width
 		else if(format[i] == '#')
 			flags.hashtag == 1;
 		else if(format[i] == ' ')
 			flags.space == 1;
 		else if(format[i] == '+')
 			flags.plus == 1;
+		else
+			return(i);
 	}
-	return(i);
 }
 
 int	ft_printf(const char *format, ...)
@@ -92,8 +111,10 @@ int	ft_printf(const char *format, ...)
 	specifiers	s;
 	char	*copy;
 	int		i;
+	int		charnumber;
 
 	i = 0;
+	charnumber = 0;
 	if(!format || *format == '\0')
 		return (0);
 	copy = ft_strdup(format);
@@ -106,15 +127,18 @@ int	ft_printf(const char *format, ...)
 		{
 			//TODO: count or i - how are they handled throught the code?
 			ft_check_flags(copy[i], i);
+			ft_check_width(copy[i], i);
 			ft_check_specifiers(copy[i], i, s);
-			ft_print_text(args, s);
+			charnumber += ft_print_text(args, s);
 		}
 		else
-			ft_putstr_fd(copy, 1);
+			//TODO: use different function to print arg0+format instead of ft_putstr_fd. And tbh you need to use putchar...
+			charnumber += ft_putstr_fd(copy, 1);
+		charnumber++;
 		i++;
 	}
 	va_end(args);
-	return(i);
+	return(charnumber);
 }
 
 int	main()
