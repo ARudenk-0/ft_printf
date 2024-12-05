@@ -13,7 +13,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <libft/libft.h>
+# include "libft/libft.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -48,7 +48,8 @@ typedef struct specifiers
 
 int	ft_printf(const char *format, ...);
 int	ft_check_flags(char *format, int i);
-int	ft_check_specifiers(char *format, int i, specifiers s);
-char	ft_print_text(va_list args, specifiers s);
+int	ft_check_specifiers(char *format, int *i, specifiers *s);
+char	ft_print_text(va_list args, specifiers s, flags f, int width);
+int	parse_format(const char *format, int *i, flags *f, int *width);
 
 #endif
