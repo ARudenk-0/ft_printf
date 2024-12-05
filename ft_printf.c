@@ -51,9 +51,12 @@ int	ft_check_width(char *format, int i)
 		}
 		else if(format[i] == '0')
 			width = (width * 10) + (format[i] - '0');
+		i++;
 	}
-	width = (width * 10) + (format[i] - '0');
-	return(i);
+	if(format[i] && format[i+1] == '.')
+		width = (width * 10) + (format[i] - '0');
+	return(width);
+	//we stopped before the dot flag
 }
 
 int	ft_check_specifiers(char *format, int i, specifiers s)
@@ -112,9 +115,11 @@ int	ft_printf(const char *format, ...)
 	char	*copy;
 	int		i;
 	int		charnumber;
+	int		width;
 
 	i = 0;
 	charnumber = 0;
+	width = 0;
 	if(!format || *format == '\0')
 		return (0);
 	copy = ft_strdup(format);
@@ -127,9 +132,9 @@ int	ft_printf(const char *format, ...)
 		{
 			//TODO: count or i - how are they handled throught the code?
 			ft_check_flags(copy[i], i);
-			ft_check_width(copy[i], i);
+			width += ft_check_width(copy[i], i);
 			ft_check_specifiers(copy[i], i, s);
-			charnumber += ft_print_text(args, s);
+			charnumber += ft_print_text(args, s); //pass width here
 		}
 		else
 			//TODO: use different function to print arg0+format instead of ft_putstr_fd. And tbh you need to use putchar...
