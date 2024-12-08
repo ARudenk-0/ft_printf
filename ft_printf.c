@@ -12,48 +12,49 @@
 
 #include "ft_printf.h"
 
-char	ft_print_text(va_list args, specifiers s, flags f, int width)
+char	ft_print_text(va_list args, format_info *info)
 {
-	int count = 0;
+	int	count;
 
-	//TODO: На данном этапе Count не будет ноль уже, надо доработать!
-	if(s.character)
+	count = 0;
+	if(info->s.character)
 		ft_putchar_fd(va_arg(args, int), 1); //had to change va_args(args, char) to ~(, int)
-	else if(s.string)
+	else if(info->s.string)
 	{
 		if(!va_arg(args, char *))
 			ft_putstr_fd("(null)", 1);
 		else
 			ft_putstr_fd(va_arg(args, char *), 1);
 	}
-	else if(s.pointer)
+	else if(info->s.pointer)
 		ft_print_pointer((unsigned long int)va_arg(args, void *)); //TODO
-	else if(s.decmal || s.integr)
+	else if(info->s.decmal || info->s.integr)
 		ft_putnbr_fd(va_arg(args, int), 1);
-	else if(s.unsignedDes)
+	else if(info->s.unsignedDes)
 		ft_putdec_nbr(va_arg(args, unsigned int), 1); //TODO
-	else if(s.unsigndLower)
+	else if(info->s.unsigndLower)
 		ft_print_hexL(va_arg(args, unsigned int), 1); //TODO
-	else if(s.unsigndUpper)
+	else if(info->s.unsigndUpper)
 		ft_print_hexU(va_arg(args, unsigned int), 1); //TODO
-	else if(s.percentSign)
+	else if(info->s.percentSign)
 		ft_putchar_fd('%', 1);
 	return(count);
 }
 
 int	ft_check_width(const char *format, int *i)
 {
-	int	width = 0;
+	int	width;
 
+	width = 0;
 	while (format[*i] && ft_isdigit(format[*i]))
 	{
 		width = (width * 10) + (format[*i] - '0');
 		(*i)++;
 	}
-	return (width);
+	return(width);
 }
 
-int	ft_check_specifiers(char *format, int *i, specifiers *s)
+int	ft_check_specifiers(char *format, int *i, format_info *info)
 {
 	while(format[*i])
 	{
@@ -80,57 +81,58 @@ int	ft_check_specifiers(char *format, int *i, specifiers *s)
 	return(format[*i]);
 }
 
-int parse_format(const char *format, int *i, flags *f, int *width)
+int	parse_format(const char *format, int *i, format_info *info)
 {
-	(*i)++;
 	while (format[*i])
 	{
 		if (format[*i] == '-')
-			f->minus = 1;
+			info->f.minus = 1;
 		else if (format[*i] == '0')
-			f->zero = 1;
+			info->f.zero = 1;
 		else if (format[*i] == '#')
-			f->hashtag = 1;
+			info->f.hashtag = 1;
 		else if (format[*i] == ' ')
-			f->space = 1;
+			info->f.space = 1;
 		else if (format[*i] == '+')
-			f->plus = 1;
+			info->f.plus = 1;
 		else
-			break; // Likely reached the specifier
+			break;
 		(*i)++;
 	}
-	return (format[*i]);
+	if (ft_isdigit(format[*i++]))
+		info->width = ft_check_width(format, i);
+	else if (ft_isalpha(format[*i++]) || ft_strchr(format[*i], '%'))
+		ft_check_specifiers(format, &i, &info);
+	return(format[*i]);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int char_count = 0;
-	int i = 0;
-	int width = 0;
-	specifiers s = {0};
-	flags f = {0};
+	int			char_count;
+	int			i;
+	format_info	info;
+	va_list		args;
 
+	i = 0;
+	char_count = 0;
 	va_start(args, format);
-	while (format[i])
+	while (format[i++])
 	{
+		initialize_data(&info);
 		if (format[i] == '%')
 		{
 			i++;
-			parse_format(format, &i, &f, &width); // Parse format
-			width = ft_check_width(format, i);
-			ft_check_specifiers(format, &i, &s);
-			char_count += ft_print_text(args, s, f, width); // Print based on parsed specifiers
+			parse_format(format, &i, &info);
+			char_count += ft_print_text(args, &info);
 		}
 		else
 		{
 			ft_putchar_fd(format[i], 1);
 			char_count++;
 		}
-		i++;
 	}
 	va_end(args);
-	return (char_count);
+	return(char_count);
 }
 
 // int	ft_printf(const char *format, ...)
@@ -173,8 +175,8 @@ int ft_printf(const char *format, ...)
 // 	return(charnumber);
 // }
 
-int	main()
-{
-	ft_printf("Text here %d\n", 46, 79, -234);
-	return(0);
-}
+// int	main()
+// {
+// 	ft_printf("Text here %d\n", 46, 79, -234);
+// 	return(0);
+// }

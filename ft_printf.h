@@ -19,6 +19,13 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+typedef struct format_info
+{
+	flags		f;
+	specifiers	s;
+	int			width;
+} format_info;
+
 typedef struct flags 
 {
 	//Any combo: -0. and the field minimum width
@@ -46,10 +53,11 @@ typedef struct specifiers
 
 } specifiers;
 
-int	ft_printf(const char *format, ...);
-int	ft_check_flags(char *format, int i);
-int	ft_check_specifiers(char *format, int *i, specifiers *s);
-char	ft_print_text(va_list args, specifiers s, flags f, int width);
-int	parse_format(const char *format, int *i, flags *f, int *width);
+int		ft_printf(const char *format, ...);
+int		parse_format(const char *format, int *i, format_info *info);
+void	initialize_data(format_info *info);
+char	ft_print_text(va_list args, format_info *info);
+int		ft_check_width(const char *format, int *i);
+int		ft_check_specifiers(char *format, int *i, format_info *info);
 
 #endif
