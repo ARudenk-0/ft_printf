@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 22:19:43 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/08 22:20:10 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/08 22:34:54 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	initialize_data(format_info *info)
 {
+	specifiers	s;
+	flags		f;
+
+	s = (specifiers){0};
+	f = (flags){0};
+	info->s = s;
+	info->f = f;
 	info->width = 0;
-	specifiers s = {0};
-	flags f = {0};
-	return(0);
 }
