@@ -54,6 +54,7 @@ int	ft_check_width(const char *format, int *i)
 	return(width);
 }
 
+//TODO: info->s.character...
 int	ft_check_specifiers(char *format, int *i, format_info *info)
 {
 	while(format[*i])
