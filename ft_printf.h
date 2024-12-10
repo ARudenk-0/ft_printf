@@ -60,4 +60,7 @@ char	ft_print_text(va_list args, format_info *info);
 int		ft_check_width(const char *format, int *i);
 int		ft_check_specifiers(char *format, int *i, format_info *info);
 
+//printf_spec_print
+int	*ft_print_pointer(va_arg(args, void *));
+
 #endif

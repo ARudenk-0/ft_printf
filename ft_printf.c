@@ -54,30 +54,29 @@ int	ft_check_width(const char *format, int *i)
 	return(width);
 }
 
-//TODO: info->s.character...
 int	ft_check_specifiers(char *format, int *i, format_info *info)
 {
 	while(format[*i])
 	{
 		(*i)++;
 		if(format[*i] == 'c')
-			s->character = 1;
+			info->s.character = 1;
 		else if(format[*i] == 's')
-			s->string = 1;
+			info->s.string = 1;
 		else if(format[*i] == 'p')
-			s->pointer = 1;
+			info->s.pointer = 1;
 		else if(format[*i] == 'd')
-			s->decmal = 1;
+			info->s.decmal = 1;
 		else if(format[*i] == 'i')
-			s->integr = 1;
+			info->s.integr = 1;
 		else if(format[*i] == 'u')
-			s->unsignedDes = 1;
+			info->s.unsignedDes = 1;
 		else if(format[*i] == 'x')
-			s->unsigndLower = 1;
+			info->s.unsigndLower = 1;
 		else if(format[*i] == 'X')
-			s->unsigndUpper = 1;
+			info->s.unsigndUpper = 1;
 		else if(format[*i] == '%')
-			s->percentSign = 1;
+			info->s.percentSign = 1;
 	}
 	return(format[*i]);
 }
