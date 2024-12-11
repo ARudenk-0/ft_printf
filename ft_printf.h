@@ -19,6 +19,13 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+typedef struct hexadF
+{
+	char	hex_digits[15]; // Hexadecimal characters
+	char	buffer[16]; // Buffer to store the reversed hex number (max 16 for 64-bit)
+	int		count;  // Character count
+} hexadF;
+
 typedef struct format_info
 {
 	flags		f;
@@ -26,7 +33,7 @@ typedef struct format_info
 	int			width;
 } format_info;
 
-typedef struct flags 
+typedef struct flags
 {
 	//Any combo: -0. and the field minimum width
 	//Manage all flags: # + (including space!!)
@@ -61,6 +68,9 @@ int		ft_check_width(const char *format, int *i);
 int		ft_check_specifiers(char *format, int *i, format_info *info);
 
 //printf_spec_print
-int	*ft_print_pointer(va_arg(args, void *));
+int	ft_print_pointer(va_list args);
+int	ft_print_hexL(unsigned long num, int fd);
+void	initialize_data_hexL(hexadF format);
+void	initialize_data_hexU(hexadF format);
 
 #endif

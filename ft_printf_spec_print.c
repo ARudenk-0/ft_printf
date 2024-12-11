@@ -6,16 +6,16 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:55:07 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/10 10:49:55 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/11 22:48:56 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_print_pointer(va_list args)
+int	ft_print_pointer(va_list args)
 {
 	unsigned long int address; // Store the address
-	int count = 0;             // Track characters printed
+	int count = 0; // Track characters printed
 
 	void *ptr = va_arg(args, void *); // Extract the next argument as a pointer
 	if (!ptr) 
@@ -35,12 +35,52 @@ int	ft_putdec_nbr(va_list args)
 	return(num);
 }
 
-int	ft_print_hexL(va_list args)
+int	ft_print_hexL(unsigned long num, int fd)
 {
-	return(num);
+	hexadF	format;
+	int		i;
+
+	i = 0;
+	initialize_data_hexL(format);
+	if (num == 0) // Handle the case for 0 explicitly
+	{
+		ft_putchar_fd('0', fd);
+		return (1); // Only 1 character printed
+	}
+	while (num > 0) // Convert the number to hexadecimal (store digits in reverse)
+	{
+		format.buffer[i++] = format.hex_digits[num % 16];
+		num /= 16;
+	}
+	while (i-- > 0) // Print the digits in reverse order
+	{
+		ft_putchar_fd(format.buffer[i], fd);
+		format.count++;
+	}
+	return (format.count); // Return the total number of characters printed
 }
 
-int	ft_print_hexU(va_list args)
+int	ft_print_hexU(unsigned long num, int fd)
 {
-	return(num);
+	hexadF	format;
+	int		i;
+
+	i = 0;
+	initialize_data_hexU(format);
+	if (num == 0)
+	{
+		ft_putchar_fd('0', fd);
+		return (1);
+	}
+	while (num > 0)
+	{
+		format.buffer[i++] = format.hex_digits[num % 16];
+		num /= 16;
+	}
+	while (i-- > 0)
+	{
+		ft_putchar_fd(format.buffer[i], fd);
+		format.count++;
+	}
+	return (format.count);
 }
