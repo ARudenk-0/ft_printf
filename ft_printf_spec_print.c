@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:55:07 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/11 22:48:56 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/11 23:20:05 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	ft_print_pointer(va_list args)
 {
-	unsigned long int address; // Store the address
-	int count = 0; // Track characters printed
-
-	void *ptr = va_arg(args, void *); // Extract the next argument as a pointer
-	if (!ptr) 
+	int					count; // Track characters printed
+	void				*ptr;
+	unsigned long int	address; // Store the address
+	count = 0;
+	ptr = va_arg(args, void *); // Extract the next argument as a pointer
+	if (!ptr)
 	{
 		ft_putstr_fd("(nil)", 1);
 		return (5); // (nil) is 5 characters
@@ -32,13 +33,13 @@ int	ft_print_pointer(va_list args)
 
 int	ft_putdec_nbr(va_list args)
 {
-	return(num);
+	return (num);
 }
 
-int	ft_print_hexL(unsigned long num, int fd)
+int	ft_print_hex_lowercase(unsigned long num, int fd)
 {
-	hexadF	format;
-	int		i;
+	hexad_format	format;
+	int				i;
 
 	i = 0;
 	initialize_data_hexL(format);
@@ -60,10 +61,10 @@ int	ft_print_hexL(unsigned long num, int fd)
 	return (format.count); // Return the total number of characters printed
 }
 
-int	ft_print_hexU(unsigned long num, int fd)
+int	ft_print_hex_uppercase(unsigned long num, int fd)
 {
-	hexadF	format;
-	int		i;
+	hexad_format	format;
+	int				i;
 
 	i = 0;
 	initialize_data_hexU(format);

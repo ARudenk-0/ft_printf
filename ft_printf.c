@@ -17,28 +17,28 @@ char	ft_print_text(va_list args, format_info *info)
 	int	count;
 
 	count = 0;
-	if(info->s.character)
-		ft_putchar_fd(va_arg(args, int), 1); //had to change va_args(args, char) to ~(, int)
-	else if(info->s.string)
+	if (info->s.character)
+		ft_putchar_fd(va_arg(args, int), 1); //had to change va_args(args, char) to ~(, int) -> what is the logic behind it?
+	else if (info->s.string)
 	{
-		if(!va_arg(args, char *))
+		if (!va_arg(args, char *))
 			ft_putstr_fd("(null)", 1);
 		else
 			ft_putstr_fd(va_arg(args, char *), 1);
 	}
-	else if(info->s.pointer)
-		ft_print_pointer((unsigned long int)va_arg(args, void *)); //TODO
-	else if(info->s.decmal || info->s.integr)
+	else if (info->s.pointer)
+		ft_print_pointer((unsigned long int)va_arg(args, void *));
+	else if (info->s.decmal || info->s.integr)
 		ft_putnbr_fd(va_arg(args, int), 1);
-	else if(info->s.unsignedDes)
+	else if (info->s.unsignedDes)
 		ft_putdec_nbr(va_arg(args, unsigned int), 1); //TODO
-	else if(info->s.unsigndLower)
-		ft_print_hexL(va_arg(args, unsigned int), 1); //TODO
-	else if(info->s.unsigndUpper)
-		ft_print_hexU(va_arg(args, unsigned int), 1); //TODO
-	else if(info->s.percentSign)
+	else if (info->s.unsigndLower)
+		ft_print_hex_lowercase(va_arg(args, unsigned int), 1);
+	else if (info->s.unsigndUpper)
+		ft_print_hex_uppercase(va_arg(args, unsigned int), 1);
+	else if (info->s.percentSign)
 		ft_putchar_fd('%', 1);
-	return(count);
+	return (count);
 }
 
 int	ft_check_width(const char *format, int *i)
@@ -51,34 +51,34 @@ int	ft_check_width(const char *format, int *i)
 		width = (width * 10) + (format[*i] - '0');
 		(*i)++;
 	}
-	return(width);
+	return (width);
 }
 
 int	ft_check_specifiers(char *format, int *i, format_info *info)
 {
-	while(format[*i])
+	while (format[*i])
 	{
 		(*i)++;
-		if(format[*i] == 'c')
+		if (format[*i] == 'c')
 			info->s.character = 1;
-		else if(format[*i] == 's')
+		else if (format[*i] == 's')
 			info->s.string = 1;
-		else if(format[*i] == 'p')
+		else if (format[*i] == 'p')
 			info->s.pointer = 1;
-		else if(format[*i] == 'd')
+		else if (format[*i] == 'd')
 			info->s.decmal = 1;
-		else if(format[*i] == 'i')
+		else if (format[*i] == 'i')
 			info->s.integr = 1;
-		else if(format[*i] == 'u')
+		else if (format[*i] == 'u')
 			info->s.unsignedDes = 1;
-		else if(format[*i] == 'x')
+		else if (format[*i] == 'x')
 			info->s.unsigndLower = 1;
-		else if(format[*i] == 'X')
+		else if (format[*i] == 'X')
 			info->s.unsigndUpper = 1;
-		else if(format[*i] == '%')
+		else if (format[*i] == '%')
 			info->s.percentSign = 1;
 	}
-	return(format[*i]);
+	return (format[*i]);
 }
 
 int	parse_format(const char *format, int *i, format_info *info)
@@ -96,14 +96,15 @@ int	parse_format(const char *format, int *i, format_info *info)
 		else if (format[*i] == '+')
 			info->f.plus = 1;
 		else
-			break;
+			break ;
 		(*i)++;
 	}
 	if (ft_isdigit(format[*i++]))
 		info->width = ft_check_width(format, i);
 	else if (ft_isalpha(format[*i++]) || ft_strchr(format[*i], '%'))
 		ft_check_specifiers(format, &i, &info);
-	return(format[*i]);
+	//TODO: prepare a buffer according to the flags: padding, zeros, minus sign etc.
+	return (format[*i]);
 }
 
 int	ft_printf(const char *format, ...)
@@ -132,7 +133,7 @@ int	ft_printf(const char *format, ...)
 		}
 	}
 	va_end(args);
-	return(char_count);
+	return (char_count);
 }
 
 // int	ft_printf(const char *format, ...)
@@ -147,10 +148,10 @@ int	ft_printf(const char *format, ...)
 // 	i = 0;
 // 	charnumber = 0;
 // 	width = 0;
-// 	if(!format || *format == '\0')
+// 	if (!format || *format == '\0')
 // 		return (0);
 // 	copy = ft_strdup(format);
-// 	if(!copy || *copy == '\0')
+// 	if (!copy || *copy == '\0')
 // 		return (0);
 // 	va_start(args, format);
 // 	while (copy[i])
@@ -172,11 +173,11 @@ int	ft_printf(const char *format, ...)
 // 		i++;
 // 	}
 // 	va_end(args);
-// 	return(charnumber);
+// 	return (charnumber);
 // }
 
 // int	main()
 // {
 // 	ft_printf("Text here %d\n", 46, 79, -234);
-// 	return(0);
+// 	return (0);
 // }

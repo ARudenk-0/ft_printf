@@ -19,12 +19,12 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-typedef struct hexadF
+typedef struct hexad_format
 {
 	char	hex_digits[15]; // Hexadecimal characters
 	char	buffer[16]; // Buffer to store the reversed hex number (max 16 for 64-bit)
 	int		count;  // Character count
-} hexadF;
+} hexad_format;
 
 typedef struct format_info
 {
@@ -69,8 +69,9 @@ int		ft_check_specifiers(char *format, int *i, format_info *info);
 
 //printf_spec_print
 int	ft_print_pointer(va_list args);
-int	ft_print_hexL(unsigned long num, int fd);
-void	initialize_data_hexL(hexadF format);
-void	initialize_data_hexU(hexadF format);
+int	ft_print_hex_lowercase(unsigned long num, int fd);
+int	ft_print_hex_uppercase(unsigned long num, int fd);
+void	initialize_data_hex_lowercase(hexad_format format);
+void	initialize_data_hex_uppercase(hexad_format format);
 
 #endif
