@@ -19,16 +19,14 @@ char	ft_print_text(va_list args, t_format_info *info)
 
 	count = 0;
 	if (info->s.character)
+	{
 		ft_putchar_fd(va_arg(args, int), 1); //had to change va_args(args, char) to ~(, int) -> what is the logic behind it?
+		ft_format_output();
+	}
 	else if (info->s.string)
 	{
-		if (!va_arg(args, char *))
-			ft_putstr_fd("(null)", 1);
-		else
-		{
-			str = va_arg(args, char *);
-			ft_format_string(str, info);
-		}
+		str = va_arg(args, char *);
+		ft_format_output(str, info);
 	}
 	else if (info->s.pointer)
 		ft_print_pointer((unsigned long int)va_arg(args, void *));

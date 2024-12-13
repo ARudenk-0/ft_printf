@@ -72,7 +72,7 @@ void	initialize_data_hex_lowercase(t_hexad_format format);
 void	initialize_data_hex_uppercase(t_hexad_format format);
 
 // ft_flags_functions
-void	ft_format_string(char *str, t_format_info *info);
+void	ft_format_output(char *str, t_format_info *info);
 
 //ft_printf_utils
 void	initialize_data(t_format_info *info);
