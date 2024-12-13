@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:55:07 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/11 23:20:05 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:20:33 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ int	ft_print_pointer(va_list args)
 
 int	ft_putdec_nbr(va_list args)
 {
-	return (num);
+	return (0);
 }
 
 int	ft_print_hex_lowercase(unsigned long num, int fd)
 {
-	hexad_format	format;
+	t_hexad_format	format;
 	int				i;
 
 	i = 0;
-	initialize_data_hexL(format);
+	initialize_data_hex_lowercase(format);
 	if (num == 0) // Handle the case for 0 explicitly
 	{
 		ft_putchar_fd('0', fd);
@@ -63,11 +63,11 @@ int	ft_print_hex_lowercase(unsigned long num, int fd)
 
 int	ft_print_hex_uppercase(unsigned long num, int fd)
 {
-	hexad_format	format;
+	t_hexad_format	format;
 	int				i;
 
 	i = 0;
-	initialize_data_hexU(format);
+	initialize_data_hex_uppercase(format);
 	if (num == 0)
 	{
 		ft_putchar_fd('0', fd);

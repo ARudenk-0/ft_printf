@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	ft_print_text(va_list args, format_info *info)
+char	ft_print_text(va_list args, t_format_info *info)
 {
 	int	count;
 
@@ -30,13 +30,13 @@ char	ft_print_text(va_list args, format_info *info)
 		ft_print_pointer((unsigned long int)va_arg(args, void *));
 	else if (info->s.decmal || info->s.integr)
 		ft_putnbr_fd(va_arg(args, int), 1);
-	else if (info->s.unsignedDes)
+	else if (info->s.unsigned_des)
 		ft_putdec_nbr(va_arg(args, unsigned int), 1); //TODO
-	else if (info->s.unsigndLower)
+	else if (info->s.unsignd_lower)
 		ft_print_hex_lowercase(va_arg(args, unsigned int), 1);
-	else if (info->s.unsigndUpper)
+	else if (info->s.unsignd_upper)
 		ft_print_hex_uppercase(va_arg(args, unsigned int), 1);
-	else if (info->s.percentSign)
+	else if (info->s.percent_sign)
 		ft_putchar_fd('%', 1);
 	return (count);
 }
@@ -54,7 +54,7 @@ int	ft_check_width(const char *format, int *i)
 	return (width);
 }
 
-int	ft_check_specifiers(char *format, int *i, format_info *info)
+int	ft_check_specifiers(char *format, int *i, t_format_info *info)
 {
 	while (format[*i])
 	{
@@ -70,18 +70,18 @@ int	ft_check_specifiers(char *format, int *i, format_info *info)
 		else if (format[*i] == 'i')
 			info->s.integr = 1;
 		else if (format[*i] == 'u')
-			info->s.unsignedDes = 1;
+			info->s.unsigned_des = 1;
 		else if (format[*i] == 'x')
-			info->s.unsigndLower = 1;
+			info->s.unsignd_lower = 1;
 		else if (format[*i] == 'X')
-			info->s.unsigndUpper = 1;
+			info->s.unsignd_upper = 1;
 		else if (format[*i] == '%')
-			info->s.percentSign = 1;
+			info->s.percent_sign = 1;
 	}
 	return (format[*i]);
 }
 
-int	parse_format(const char *format, int *i, format_info *info)
+int	parse_format(const char *format, int *i, t_format_info *info)
 {
 	while (format[*i])
 	{
@@ -109,10 +109,10 @@ int	parse_format(const char *format, int *i, format_info *info)
 
 int	ft_printf(const char *format, ...)
 {
-	int			char_count;
-	int			i;
-	format_info	info;
-	va_list		args;
+	int				char_count;
+	int				i;
+	t_format_info	info;
+	va_list			args;
 
 	i = 0;
 	char_count = 0;

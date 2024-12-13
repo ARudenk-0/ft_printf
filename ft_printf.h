@@ -19,33 +19,32 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-typedef struct hexad_format
+typedef struct s_hexad_format
 {
-	char	hex_digits[15]; // Hexadecimal characters
-	char	buffer[16]; // Buffer to store the reversed hex number (max 16 for 64-bit)
-	int		count;  // Character count
-} hexad_format;
+	char	hex_digits[15];// Hexadecimal characters
+	char	buffer[16];// Buffer to store the reversed hex number (max 16 for 64-bit)
+	int		count;// Character count
+}	t_hexad_format;
 
-typedef struct format_info
+typedef struct s_format_info
 {
-	flags		f;
-	specifiers	s;
-	int			width;
-} format_info;
+	t_flags			f;
+	t_specifiers	s;
+	int				width;
+}	t_format_info;
 
-typedef struct flags
+typedef struct s_flags
 {
 	//Any combo: -0. and the field minimum width
 	//Manage all flags: # + (including space!!)
-
 	int	minus;
 	int	zero;
 	int	hashtag;
 	int	space;
 	int	plus;
-} flags;
+}	t_flags;
 
-typedef struct specifiers
+typedef struct s_specifiers
 {
 	//cspdiuxX%
 	int	character;
@@ -53,25 +52,24 @@ typedef struct specifiers
 	int	pointer;
 	int	decmal;
 	int	integr;
-	int	unsignedDes;
-	int	unsigndLower;
-	int	unsigndUpper;
-	int	percentSign;
-
-} specifiers;
+	int	unsigned_des;
+	int	unsignd_lower;
+	int	unsignd_upper;
+	int	percent_sign;
+}	t_specifiers;
 
 int		ft_printf(const char *format, ...);
-int		parse_format(const char *format, int *i, format_info *info);
-void	initialize_data(format_info *info);
-char	ft_print_text(va_list args, format_info *info);
+int		parse_format(const char *format, int *i, t_format_info *info);
+void	initialize_data(t_format_info *info);
+char	ft_print_text(va_list args, t_format_info *info);
 int		ft_check_width(const char *format, int *i);
-int		ft_check_specifiers(char *format, int *i, format_info *info);
+int		ft_check_specifiers(char *format, int *i, t_format_info *info);
 
 //printf_spec_print
-int	ft_print_pointer(va_list args);
-int	ft_print_hex_lowercase(unsigned long num, int fd);
-int	ft_print_hex_uppercase(unsigned long num, int fd);
-void	initialize_data_hex_lowercase(hexad_format format);
-void	initialize_data_hex_uppercase(hexad_format format);
+int		ft_print_pointer(va_list args);
+int		ft_print_hex_lowercase(unsigned long num, int fd);
+int		ft_print_hex_uppercase(unsigned long num, int fd);
+void	initialize_data_hex_lowercase(t_hexad_format format);
+void	initialize_data_hex_uppercase(t_hexad_format format);
 
 #endif
