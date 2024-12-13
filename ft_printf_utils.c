@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 22:19:43 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/13 17:19:05 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/13 18:58:50 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,18 @@ void	initialize_data_hex_uppercase(t_hexad_format format)
 {
 	format.hex_digits[15] = "0123456789ABCDEF";
 	format.count = 0;
+}
+
+void	ft_putnchar_fd(char c, int n, int fd)
+{
+	while (n > 0)
+	{
+		write(fd, &c, 1);
+		n--;
+	}
+}
+
+void	ft_add_prefix(char *result, char *prefix)
+{
+	
 }

@@ -14,7 +14,8 @@
 
 char	ft_print_text(va_list args, t_format_info *info)
 {
-	int	count;
+	int		count;
+	char	*str;
 
 	count = 0;
 	if (info->s.character)
@@ -24,7 +25,10 @@ char	ft_print_text(va_list args, t_format_info *info)
 		if (!va_arg(args, char *))
 			ft_putstr_fd("(null)", 1);
 		else
-			ft_putstr_fd(va_arg(args, char *), 1);
+		{
+			str = va_arg(args, char *);
+			ft_format_string(str, info);
+		}
 	}
 	else if (info->s.pointer)
 		ft_print_pointer((unsigned long int)va_arg(args, void *));
