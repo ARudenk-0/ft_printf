@@ -60,7 +60,7 @@ typedef struct s_specifiers
 
 int		ft_printf(const char *format, ...);
 int		parse_format(const char *format, int *i, t_format_info *info);
-char	ft_print_text(va_list args, t_format_info *info);
+char	ft_print_arg(va_list args, t_format_info *info);
 int		ft_check_width(const char *format, int *i);
 int		ft_check_specifiers(char *format, int *i, t_format_info *info);
 

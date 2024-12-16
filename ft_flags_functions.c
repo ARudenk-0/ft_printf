@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:56:44 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/13 19:32:53 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:16:23 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,5 @@ void	ft_format_output(char *str, t_format_info *info)
 	if (info->f.minus) // Print padding (left-align if minus flag IS set)
 		ft_putnchar_fd(' ', padding, 1);
 }
+
+//TODO: separate printing in another function? ex: ft_print_everything?

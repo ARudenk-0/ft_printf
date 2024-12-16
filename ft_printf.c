@@ -12,28 +12,23 @@
 
 #include "ft_printf.h"
 
-char	ft_print_text(va_list args, t_format_info *info)
+char	ft_print_arg(va_list args, t_format_info *info)
 {
 	int		count;
 	char	*str;
 
 	count = 0;
-	if (info->s.character)
-	{
-		ft_putchar_fd(va_arg(args, int), 1); //had to change va_args(args, char) to ~(, int) -> what is the logic behind it?
-		ft_format_output();
-	}
-	else if (info->s.string)
+	if (info->s.character || info -> s.string)
 	{
 		str = va_arg(args, char *);
-		ft_format_output(str, info);
+		ft_format_output(str, info); // Merged char and str, because char is a str[2]
 	}
 	else if (info->s.pointer)
 		ft_print_pointer((unsigned long int)va_arg(args, void *));
 	else if (info->s.decmal || info->s.integr)
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (info->s.unsigned_des)
-		ft_putdec_nbr(va_arg(args, unsigned int), 1); //TODO
+		ft_putnbr_fd(va_arg(args, unsigned int), 1);
 	else if (info->s.unsignd_lower)
 		ft_print_hex_lowercase(va_arg(args, unsigned int), 1);
 	else if (info->s.unsignd_upper)
@@ -126,7 +121,7 @@ int	ft_printf(const char *format, ...)
 		{
 			i++;
 			parse_format(format, &i, &info);
-			char_count += ft_print_text(args, &info);
+			char_count += ft_print_arg(args, &info);
 		}
 		else
 		{
@@ -164,7 +159,7 @@ int	ft_printf(const char *format, ...)
 // 			ft_check_flags(copy, i);
 // 			width += ft_check_width(copy, i);
 // 			ft_check_specifiers(copy, i, s);
-// 			charnumber += ft_print_text(args, s, width); //pass width here
+// 			charnumber += ft_print_arg(args, s, width); //pass width here
 // 		}
 // 		else
 // 		{
