@@ -26,17 +26,8 @@ typedef struct s_hexad_format
 	int		count;// Character count
 }	t_hexad_format;
 
-typedef struct s_format_info
-{
-	t_flags			f;
-	t_specifiers	s;
-	int				width;
-}	t_format_info;
-
 typedef struct s_flags
 {
-	//Any combo: -0. and the field minimum width
-	//Manage all flags: # + (including space!!)
 	int	minus;
 	int	zero;
 	int	hashtag;
@@ -46,7 +37,6 @@ typedef struct s_flags
 
 typedef struct s_specifiers
 {
-	//cspdiuxX%
 	int	character;
 	int	string;
 	int	pointer;
@@ -57,6 +47,13 @@ typedef struct s_specifiers
 	int	unsignd_upper;
 	int	percent_sign;
 }	t_specifiers;
+
+typedef struct s_format_info
+{
+	t_flags			f;
+	t_specifiers	s;
+	int				width;
+}	t_format_info;
 
 int		ft_printf(const char *format, ...);
 int		parse_format(const char *format, int *i, t_format_info *info);

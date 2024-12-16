@@ -6,29 +6,55 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/12/16 15:12:06 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/16 15:23:29 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Source files
 SRCS		= ft_printf.c ft_printf_utils.c ft_printf_spec_print.c ft-printf_flags_functions.c
+
+# Object files
 OBJS		= $(SRCS:.c=.o)
 
+# Compiler and flags
 CC			= cc
-RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
+
+# Library name
 NAME		= libftprintf.a
 
+# Path to libft
+LIBFT		= libft/libft.a
+
+# Rules
 all:		$(NAME)
 
-$(NAME):	$(OBJS)
-			ar rcs $(NAME) $(OBJ)
+# Compile the ft_printf library
+$(NAME):	$(OBJS) $(LIBFT)
+			ar rcs $(NAME) $(OBJS)
+			ar rcs $(NAME) $(LIBFT)
 
+# Compile libft if necessary
+$(LIBFT):
+			make -C libft
+
+# Clean only ft_printf object files
 clean:
-			$(RM) $(OBJS) $(BONUS_OBJS)
+			$(RM) $(OBJS)
+			make clean -C libft
 
+# Clean all generated files
 fclean:		clean
 			$(RM) $(NAME)
+			make fclean -C libft
 
-re:			fclean $(NAME)
+# Recompile everything
+re:			fclean all
 
-.PHONY:		all clean fclean re
+# Debugging info
+debug:
+			@echo "SRCS = $(SRCS)"
+			@echo "OBJS = $(OBJS)"
+
+# Phony targets
+.PHONY:		all clean fclean re debug

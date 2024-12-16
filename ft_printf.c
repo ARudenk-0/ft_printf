@@ -24,7 +24,7 @@ char	ft_print_arg(va_list args, t_format_info *info)
 		ft_format_output(str, info); // Merged char and str, because char is a str[2]
 	}
 	else if (info->s.pointer)
-		ft_print_pointer((unsigned long int)va_arg(args, void *));
+		ft_print_pointer((long unsigned int)va_arg(args, void *));
 	else if (info->s.decmal || info->s.integr)
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (info->s.unsigned_des)
