@@ -6,11 +6,11 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/11/18 19:41:12 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/16 15:12:06 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=
+SRCS		= ft_printf.c ft_printf_utils.c ft_printf_spec_print.c ft-printf_flags_functions.c
 OBJS		= $(SRCS:.c=.o)
 
 CC			= cc
