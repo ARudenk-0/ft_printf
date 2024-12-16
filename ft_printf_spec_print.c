@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:55:07 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/13 17:20:33 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:21:29 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_print_pointer(va_list args)
 
 int	ft_putdec_nbr(va_list args)
 {
+	//TODO: add itoa and putnbr_fd here
 	return (0);
 }
 
