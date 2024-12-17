@@ -21,8 +21,8 @@
 
 typedef struct s_hexad_format
 {
-	char	hex_digits[15];// Hexadecimal characters
-	char	buffer[16];// Buffer to store the reversed hex number (max 16 for 64-bit)
+	char	*hex_digits[15];// Hexadecimal characters
+	char	*buffer[16];// Buffer to store the reversed hex number (max 16 for 64-bit)
 	int		count;// Character count
 }	t_hexad_format;
 
@@ -59,7 +59,7 @@ int		ft_printf(const char *format, ...);
 int		parse_format(const char *format, int *i, t_format_info *info);
 char	ft_print_arg(va_list args, t_format_info *info);
 int		ft_check_width(const char *format, int *i);
-int		ft_check_specifiers(char *format, int *i, t_format_info *info);
+int		ft_check_specifiers(const char *format, int *i, t_format_info *info);
 
 //ft_printf_spec_print
 int		ft_print_pointer(va_list args);

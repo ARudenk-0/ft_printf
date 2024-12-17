@@ -24,7 +24,7 @@ char	ft_print_arg(va_list args, t_format_info *info)
 		ft_format_output(str, info); // Merged char and str, because char is a str[2]
 	}
 	else if (info->s.pointer)
-		ft_print_pointer((long unsigned int)va_arg(args, void *));
+		ft_print_pointer(va_arg(args, void *));
 	else if (info->s.decmal || info->s.integr)
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (info->s.unsigned_des)
@@ -51,7 +51,7 @@ int	ft_check_width(const char *format, int *i)
 	return (width);
 }
 
-int	ft_check_specifiers(char *format, int *i, t_format_info *info)
+int	ft_check_specifiers(const char *format, int *i, t_format_info *info)
 {
 	while (format[*i])
 	{
@@ -98,8 +98,8 @@ int	parse_format(const char *format, int *i, t_format_info *info)
 	}
 	if (ft_isdigit(format[*i++]))
 		info->width = ft_check_width(format, i);
-	else if (ft_isalpha(format[*i++]) || ft_strchr(format[*i], '%'))
-		ft_check_specifiers(format, &i, &info);
+	else if (ft_isalpha(format[*i++]) || ft_strchr(&format[*i], '%'))
+		ft_check_specifiers(format, i, info);
 	//TODO: prepare a buffer according to the flags: padding, zeros, minus sign etc.
 	return (format[*i]);
 }
