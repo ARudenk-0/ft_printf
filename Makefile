@@ -6,7 +6,7 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/12/18 22:10:32 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/18 23:15:02 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,18 +25,22 @@ NAME		= libftprintf.a
 
 # Path to libft
 LIBFT		= libft/libft.a
+# LIBFT_OBJS := $(shell find libft -name "*.o")
 
 # Rules
 all:		$(NAME)
 
 # Compile the ft_printf library
 $(NAME):	$(OBJS) $(LIBFT)
-			ar rcs $(NAME) $(OBJS)
-			ar rcs $(NAME) $(LIBFT)
+			make -C libft
+			cp libft/libft.a .
+			ar -x libft.a
+			ar rcs $(NAME) $(OBJS) *.o
+			$(RM) *.o libft.a
 
 # Compile libft if necessary
-$(LIBFT):
-			make -C libft
+# $(LIBFT):
+# 			make -C libft
 
 # Clean only ft_printf object files
 clean:
@@ -55,6 +59,7 @@ re:			fclean all
 debug:
 			@echo "SRCS = $(SRCS)"
 			@echo "OBJS = $(OBJS)"
+			@echo "LIBFT_OBJS = $(LIBFT_OBJS)"
 
 # Phony targets
 .PHONY:		all clean fclean re debug

@@ -172,9 +172,3 @@ int	ft_printf(const char *format, ...)
 // 	va_end(args);
 // 	return (charnumber);
 // }
-
-// int	main()
-// {
-// 	ft_printf("Text here %d\n", 46, 79, -234);
-// 	return (0);
-// }
