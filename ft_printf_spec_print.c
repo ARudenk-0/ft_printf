@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:55:07 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/16 13:21:29 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/18 22:03:05 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	ft_print_pointer(va_list args)
 	address = (unsigned long int)ptr; // Convert the pointer to an unsigned long and print as hex
 	ft_putstr_fd("0x", 1); // Print "0x" prefix
 	count += 2; // '0x' prefix
-	count += ft_print_hexL(address, 1); // Print address in hex
+	count += ft_print_hex_lowercase(address, 1); // Print address in hex
 	return (count);
 }
 
-int	ft_putdec_nbr(va_list args)
-{
-	//TODO: add itoa and putnbr_fd here
-	return (0);
-}
+// int	ft_putdec_nbr(va_list args)
+// {
+// 	//TODO: add itoa and putnbr_fd here
+// 	return (0);
+// }
 
 int	ft_print_hex_lowercase(unsigned long num, int fd)
 {
@@ -43,7 +43,7 @@ int	ft_print_hex_lowercase(unsigned long num, int fd)
 	int				i;
 
 	i = 0;
-	initialize_data_hex_lowercase(format);
+	initialize_data_hex_lowercase(&format);
 	if (num == 0) // Handle the case for 0 explicitly
 	{
 		ft_putchar_fd('0', fd);
@@ -68,7 +68,7 @@ int	ft_print_hex_uppercase(unsigned long num, int fd)
 	int				i;
 
 	i = 0;
-	initialize_data_hex_uppercase(format);
+	initialize_data_hex_uppercase(&format);
 	if (num == 0)
 	{
 		ft_putchar_fd('0', fd);

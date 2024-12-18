@@ -21,8 +21,8 @@
 
 typedef struct s_hexad_format
 {
-	char	*hex_digits[15];// Hexadecimal characters
-	char	*buffer[16];// Buffer to store the reversed hex number (max 16 for 64-bit)
+	char	hex_digits[15];// Hexadecimal characters
+	char	buffer[20];// Buffer to store the reversed hex number (max 16 for 64-bit)
 	int		count;// Character count
 }	t_hexad_format;
 
@@ -65,16 +65,14 @@ int		ft_check_specifiers(const char *format, int *i, t_format_info *info);
 int		ft_print_pointer(va_list args);
 int		ft_print_hex_lowercase(unsigned long num, int fd);
 int		ft_print_hex_uppercase(unsigned long num, int fd);
-void	initialize_data_hex_lowercase(t_hexad_format format);
-void	initialize_data_hex_uppercase(t_hexad_format format);
+void	initialize_data_hex_lowercase(t_hexad_format *format);
+void	initialize_data_hex_uppercase(t_hexad_format *format);
 
 // ft_flags_functions
 void	ft_format_output(char *str, t_format_info *info);
 
 //ft_printf_utils
 void	initialize_data(t_format_info *info);
-void	initialize_data_hex_lowercase(t_hexad_format format);
-void	initialize_data_hex_uppercase(t_hexad_format format);
 void	ft_putnchar_fd(char c, int n, int fd);
 
 

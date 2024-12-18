@@ -6,12 +6,12 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/12/16 15:23:29 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/18 22:10:32 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Source files
-SRCS		= ft_printf.c ft_printf_utils.c ft_printf_spec_print.c ft-printf_flags_functions.c
+SRCS		= ft_printf.c ft_printf_utils.c ft_printf_spec_print.c ft_printf_flags_functions.c
 
 # Object files
 OBJS		= $(SRCS:.c=.o)
