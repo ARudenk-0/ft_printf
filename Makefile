@@ -6,7 +6,7 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/12/20 14:04:44 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/20 17:05:09 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,9 @@ $(NAME): $(OBJS) $(LIBFT)
 # Rule for object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# $< The name of the first prerequisite.
+# $@ The file name of the target of the rule.
 
 # Compile libft
 $(LIBFT):
