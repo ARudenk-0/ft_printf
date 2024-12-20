@@ -12,27 +12,29 @@
 
 #include "ft_printf.h"
 
-char	ft_print_arg(va_list args, t_format_info *info)
+int	ft_print_arg(va_list args, t_format_info *info)
 {
 	int		count;
 	char	*str;
 
 	count = 0;
-	if (info->s.character || info -> s.string)
+	if (info->s.character)
+		count += ft_format_output((char)va_arg(args, int), info);
+	else if (info -> s.string)
 	{
 		str = va_arg(args, char *);
-		ft_format_output(str, info); // Merged char and str, because char is a str[2]
+		count += ft_format_output(str, info);
 	}
 	else if (info->s.pointer)
-		ft_print_pointer(va_arg(args, void *));
+		count += ft_print_pointer(va_arg(args, void *));
 	else if (info->s.decmal || info->s.integr)
-		ft_putnbr_fd(va_arg(args, int), 1);
+		count += ft_putnubr_fd(va_arg(args, int), 1);
 	else if (info->s.unsigned_des)
-		ft_putnbr_fd(va_arg(args, unsigned int), 1);
+		count += ft_putnubr_fd(va_arg(args, unsigned int), 1);
 	else if (info->s.unsignd_lower)
-		ft_print_hex_lowercase(va_arg(args, unsigned int), 1);
+		count += ft_print_hex_lowercase(va_arg(args, unsigned int), 1);
 	else if (info->s.unsignd_upper)
-		ft_print_hex_uppercase(va_arg(args, unsigned int), 1);
+		count += ft_print_hex_uppercase(va_arg(args, unsigned int), 1);
 	else if (info->s.percent_sign)
 		ft_putchar_fd('%', 1);
 	return (count);
@@ -96,12 +98,11 @@ int	parse_format(const char *format, int *i, t_format_info *info)
 			break ;
 		(*i)++;
 	}
-	if (ft_isdigit(format[*i++]))
-		info->width = ft_check_width(format, i);
-	else if (ft_isalpha(format[*i++]) || ft_strchr(&format[*i], '%'))
-		ft_check_specifiers(format, i, info);
-	//TODO: prepare a buffer according to the flags: padding, zeros, minus sign etc.
-	return (format[*i]);
+	if (ft_isdigit(format[(*i)]))
+		info->width = ft_check_width(&format, &i);
+	else if (ft_isalpha(format[*i]) || ft_strchr(&format[*i], '%'))
+		ft_check_specifiers(&format, &i, &info);
+	return (i);
 }
 
 int	ft_printf(const char *format, ...)
@@ -114,7 +115,7 @@ int	ft_printf(const char *format, ...)
 	i = 0;
 	char_count = 0;
 	va_start(args, format);
-	while (format[i++])
+	while (format[i])
 	{
 		initialize_data(&info);
 		if (format[i] == '%')
@@ -128,6 +129,7 @@ int	ft_printf(const char *format, ...)
 			ft_putchar_fd(format[i], 1);
 			char_count++;
 		}
+		i++;
 	}
 	va_end(args);
 	return (char_count);
