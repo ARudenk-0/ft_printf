@@ -21,9 +21,9 @@
 
 typedef struct s_hexad_format
 {
-	char	hex_digits[15];// Hexadecimal characters
-	char	buffer[20];// Buffer to store the reversed hex number (max 16 for 64-bit)
-	int		count;// Character count
+	char	hex_digits[16]; // 16 instead of 15 to hold "0123456789abcdef"
+	char	buffer[20];     // Buffer to store reversed hex digits
+	int		count;          // Character count
 }	t_hexad_format;
 
 typedef struct s_flags
@@ -55,34 +55,32 @@ typedef struct s_format_info
 	int				width;
 }	t_format_info;
 
-//ft_printf
+// Main
 int		ft_printf(const char *format, ...);
 int		parse_format(const char *format, int *i, t_format_info *info);
 int		ft_print_arg(va_list args, t_format_info *info);
 int		ft_check_width(const char *format, int *i);
 int		ft_check_specifiers(const char *format, int *i, t_format_info *info);
 
-//ft_printf_spec_print
-int		ft_print_pointer(va_list args);
+// Specifiers
+int		ft_print_pointer(void *ptr);
 int		ft_print_hex_lowercase(unsigned long num, int fd);
 int		ft_print_hex_uppercase(unsigned long num, int fd);
 
-// ft_printf_flags_functions
+// Flags / width
 int		ft_format_output(char *str, t_format_info *info);
 
-//ft_printf_char_utils
+// Char / string utils
 int		ft_putnchar_fd_count(char c, int n, int fd);
-int		ft_putstr_fd(char *s, int fd);
-int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd_count(char *s, int fd);
+int		ft_putchar_fd_count(char c, int fd);
 
-//ft_printf_initializing
+// Initialize
 void	initialize_data(t_format_info *info);
 void	initialize_data_hex_lowercase(t_hexad_format *format);
 void	initialize_data_hex_uppercase(t_hexad_format *format);
 
-//ft_printf_num
-int		ft_putstr_fd_count(char *s, int fd);
+// Numbers
 int		ft_putnbr_fd_count(int n, int fd);
-
 
 #endif

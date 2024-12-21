@@ -6,7 +6,7 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/12/20 17:05:09 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/21 20:59:52 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ARFLAGS 		=	rcs
 RM				=	rm -rf
 
 # Source files
-SRC				=	ft_printf.c ft_printf_utils.c ft_printf_spec_print.c ft_printf_flags_functions.c
+SRC				=	ft_printf.c ft_printf_char_utils.c ft_printf_spec_print.c ft_printf_flags_functions.c ft_printf_initializing.c ft_printf_num.c
 
 # Object files
 OBJS			=	$(SRC:.c=.o)

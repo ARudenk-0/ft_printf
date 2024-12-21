@@ -6,36 +6,28 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:55:07 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/18 22:03:05 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/21 21:55:40 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_pointer(va_list args)
+int	ft_print_pointer(void *ptr)
 {
-	int					count; // Track characters printed
-	void				*ptr;
-	unsigned long int	address; // Store the address
+	int					count;
+	unsigned long		address;
+
 	count = 0;
-	ptr = va_arg(args, void *); // Extract the next argument as a pointer
 	if (!ptr)
 	{
 		ft_putstr_fd("(nil)", 1);
-		return (5); // (nil) is 5 characters
+		return (5);
 	}
-	address = (unsigned long int)ptr; // Convert the pointer to an unsigned long and print as hex
-	ft_putstr_fd("0x", 1); // Print "0x" prefix
-	count += 2; // '0x' prefix
-	count += ft_print_hex_lowercase(address, 1); // Print address in hex
+	address = (unsigned long)ptr; 
+	count += ft_putstr_fd_count("0x", 1);
+	count += ft_print_hex_lowercase(address, 1);
 	return (count);
 }
-
-// int	ft_putdec_nbr(va_list args)
-// {
-// 	//TODO: add itoa and putnbr_fd here
-// 	return (0);
-// }
 
 int	ft_print_hex_lowercase(unsigned long num, int fd)
 {
@@ -44,22 +36,19 @@ int	ft_print_hex_lowercase(unsigned long num, int fd)
 
 	i = 0;
 	initialize_data_hex_lowercase(&format);
-	if (num == 0) // Handle the case for 0 explicitly
-	{
-		ft_putchar_fd('0', fd);
-		return (1); // Only 1 character printed
-	}
-	while (num > 0) // Convert the number to hexadecimal (store digits in reverse)
+	if (num == 0)
+		return (ft_putchar_fd_count('0', fd));
+	while (num > 0)
 	{
 		format.buffer[i++] = format.hex_digits[num % 16];
 		num /= 16;
 	}
-	while (i-- > 0) // Print the digits in reverse order
+	while (i-- > 0)
 	{
-		ft_putchar_fd(format.buffer[i], fd);
+		ft_putchar_fd_count(format.buffer[i], fd);
 		format.count++;
 	}
-	return (format.count); // Return the total number of characters printed
+	return (format.count);
 }
 
 int	ft_print_hex_uppercase(unsigned long num, int fd)
@@ -70,10 +59,7 @@ int	ft_print_hex_uppercase(unsigned long num, int fd)
 	i = 0;
 	initialize_data_hex_uppercase(&format);
 	if (num == 0)
-	{
-		ft_putchar_fd('0', fd);
-		return (1);
-	}
+		return (ft_putchar_fd_count('0', fd));
 	while (num > 0)
 	{
 		format.buffer[i++] = format.hex_digits[num % 16];
@@ -81,7 +67,7 @@ int	ft_print_hex_uppercase(unsigned long num, int fd)
 	}
 	while (i-- > 0)
 	{
-		ft_putchar_fd(format.buffer[i], fd);
+		ft_putchar_fd_count(format.buffer[i], fd);
 		format.count++;
 	}
 	return (format.count);

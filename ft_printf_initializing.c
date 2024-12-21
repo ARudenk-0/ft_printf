@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:05:27 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/21 20:06:00 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/21 21:56:21 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ void	initialize_data(t_format_info *info)
 
 void	initialize_data_hex_lowercase(t_hexad_format *format)
 {
-	(void)format;
 	format->count = 0;
 	ft_memcpy(format->hex_digits, "0123456789abcdef", 16);
+	// Or use for loop. Just ensure you copy all 16 chars (including 'f').
 }
 
 void	initialize_data_hex_uppercase(t_hexad_format *format)
 {
-	(void)format;
 	format->count = 0;
 	ft_memcpy(format->hex_digits, "0123456789ABCDEF", 16);
 }
