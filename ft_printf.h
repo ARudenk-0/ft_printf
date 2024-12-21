@@ -55,6 +55,7 @@ typedef struct s_format_info
 	int				width;
 }	t_format_info;
 
+//ft_printf
 int		ft_printf(const char *format, ...);
 int		parse_format(const char *format, int *i, t_format_info *info);
 int		ft_print_arg(va_list args, t_format_info *info);
@@ -69,12 +70,19 @@ int		ft_print_hex_uppercase(unsigned long num, int fd);
 // ft_printf_flags_functions
 int		ft_format_output(char *str, t_format_info *info);
 
-//ft_printf_utils
+//ft_printf_char_utils
+int		ft_putnchar_fd_count(char c, int n, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+
+//ft_printf_initializing
 void	initialize_data(t_format_info *info);
 void	initialize_data_hex_lowercase(t_hexad_format *format);
 void	initialize_data_hex_uppercase(t_hexad_format *format);
-int		ft_putnchar_fd(char c, int n, int fd);
-int		ft_putnubr_fd(int n, int fd);
+
+//ft_printf_num
+int		ft_putstr_fd_count(char *s, int fd);
+int		ft_putnbr_fd_count(int n, int fd);
 
 
 #endif
