@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:06:02 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/22 16:58:22 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/22 22:09:11 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	ft_putunbr_fd_count(unsigned int n, int fd)
 		count += ft_putchar_fd_count((n % 10) + '0', fd);
 	}
 	else
-	{
 		count += ft_putchar_fd_count(n + '0', fd);
-	}
 	return (count);
 }

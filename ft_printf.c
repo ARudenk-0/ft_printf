@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+//TODO: break down into smaller functions (char+str+pointer/dec+int+unsigned/hex+Hex) 
+// + create the additional files that have these functions
 int	ft_print_arg(va_list args, t_format_info *info)
 {
 	int		count;
@@ -37,13 +39,19 @@ int	ft_print_arg(va_list args, t_format_info *info)
 		count += ft_print_pointer(ptr);
 	}
 	else if (info->s.decmal || info->s.integr)
-		count += ft_putnbr_fd_count(va_arg(args, int), 1);
+		count += ft_print_number_signed((long)va_arg(args, int), info);
 	else if (info->s.unsigned_des)
-		count += ft_putunbr_fd_count(va_arg(args, unsigned int), 1);
+		count += ft_print_number_unsigned((unsigned long)va_arg(args, unsigned int), info, 10, 0);
 	else if (info->s.unsignd_lower)
-		count += ft_print_hex_lowercase(va_arg(args, unsigned int), 1);
+		{
+			unsigned long n = (unsigned long)va_arg(args, unsigned int);
+			count += ft_print_number_unsigned(n, info, 16, 0);
+		}
 	else if (info->s.unsignd_upper)
-		count += ft_print_hex_uppercase(va_arg(args, unsigned int), 1);
+		{
+			unsigned long n = (unsigned long)va_arg(args, unsigned int);
+			count += ft_print_number_unsigned(n, info, 16, 1);
+		}
 	else if (info->s.percent_sign)
 		count += ft_putchar_fd_count('%', 1); // ensure we add to count
 	return (count);
@@ -64,8 +72,7 @@ int	ft_check_width(const char *format, int *i)
 
 int	ft_check_specifiers(const char *format, int *i, t_format_info *info)
 {
-	// We only read ONE character for the specifier
-	if (format[*i] == 'c')
+	if (format[*i] == 'c') 	// We only read ONE character for the specifier
 		info->s.character = 1;
 	else if (format[*i] == 's')
 		info->s.string = 1;
@@ -83,15 +90,12 @@ int	ft_check_specifiers(const char *format, int *i, t_format_info *info)
 		info->s.unsignd_upper = 1;
 	else if (format[*i] == '%')
 		info->s.percent_sign = 1;
-
-	// We return the character if needed. Or just do:
-	return (format[*i]);
+	return (format[*i]); 	// We return the character if needed. Or just do:
 }
 
 int	parse_format(const char *format, int *i, t_format_info *info)
 {
-	// Parse possible flags
-	while (format[*i])
+	while (format[*i]) // Parse possible flags
 	{
 		if (format[*i] == '-')
 			info->f.minus = 1;
@@ -107,16 +111,11 @@ int	parse_format(const char *format, int *i, t_format_info *info)
 			break ;
 		(*i)++;
 	}
-
-	// Parse width (if present)
-	if (ft_isdigit(format[*i]))
+	if (ft_isdigit(format[*i])) // Parse width (if present)
 		info->width = ft_check_width(format, i);
-
-	// Now we expect exactly one specifier (e.g. 'c', 's', etc.)
-	if (format[*i] && (ft_isalpha(format[*i]) || format[*i] == '%'))
-	{
+	ft_parse_precision(format, i, info);
+	if (format[*i] && (ft_isalpha(format[*i]) || format[*i] == '%')) // Now we expect exactly one specifier (e.g. 'c', 's', etc.)
 		ft_check_specifiers(format, i, info);
-	}
 	return (*i);
 }
 
@@ -148,43 +147,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (char_count);
 }
-
-// int	ft_printf(const char *format, ...)
-// {
-// 	va_list	args;
-// 	specifiers	s;
-// 	char	*copy;
-// 	int		i;
-// 	int		charnumber;
-// 	int		width;
-
-// 	i = 0;
-// 	charnumber = 0;
-// 	width = 0;
-// 	if (!format || *format == '\0')
-// 		return (0);
-// 	copy = ft_strdup(format);
-// 	if (!copy || *copy == '\0')
-// 		return (0);
-// 	va_start(args, format);
-// 	while (copy[i])
-// 	{
-// 		if (copy[i] == '%' && copy[i] != '\0')
-// 		{
-// 			//TODO: count or i - how are they handled throught the code?
-// 			ft_check_flags(copy, i);
-// 			width += ft_check_width(copy, i);
-// 			ft_check_specifiers(copy, i, s);
-// 			charnumber += ft_print_arg(args, s, width); //pass width here
-// 		}
-// 		else
-// 		{
-// 			ft_putchar_fd(*copy, 1);
-// 			charnumber += 1; // add error check
-// 		}
-// 		charnumber++;
-// 		i++;
-// 	}
-// 	va_end(args);
-// 	return (charnumber);
-// }

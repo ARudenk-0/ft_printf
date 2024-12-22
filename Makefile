@@ -6,7 +6,7 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/12/21 20:59:52 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/22 22:05:26 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,15 @@ ARFLAGS 		=	rcs
 RM				=	rm -rf
 
 # Source files
-SRC				=	ft_printf.c ft_printf_char_utils.c ft_printf_spec_print.c ft_printf_flags_functions.c ft_printf_initializing.c ft_printf_num.c
+SRC				=	ft_printf.c
+					ft_printf_char_utils.c
+					ft_printf_spec_print.c
+					ft_printf_flags_functions.c
+					ft_printf_initializing.c
+					ft_printf_num.c
+					ft_printf_precision.c
+					ft_printf_ltoa_signed.c
+					ft_printf_ltoa_unsigned.c
 
 # Object files
 OBJS			=	$(SRC:.c=.o)
@@ -32,6 +40,8 @@ LIBFT			=	$(LIBFT_PATH)/libft.a
 
 # Default rule
 all: $(NAME)
+
+bonus:				all
 
 # Create the combined library
 $(NAME): $(OBJS) $(LIBFT)
@@ -67,54 +77,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re
-
-# # Source files for ft_printf
-# SRCS		= ft_printf.c ft_printf_utils.c ft_printf_spec_print.c ft_printf_flags_functions.c
-
-# # Object files
-# OBJS		= $(SRCS:.c=.o)
-
-# # Compiler and flags
-# CC			= cc
-# CFLAGS		= -Wall -Wextra -Werror
-
-# # Library name
-# NAME		= libftprintf.a
-
-# # Path to libft
-# LIBFT		= libft/libft.a
-
-# # Rules
-# all:		$(NAME)
-
-# # Compile the ft_printf library
-# $(NAME):	$(OBJS) $(LIBFT)
-# 			ar rcs $(NAME) $(OBJS)
-# 			ar rcs $(NAME) $(LIBFT)
-
-# # Compile libft if necessary
-# $(LIBFT):
-# 			make -C libft
-
-# # Clean only ft_printf object files
-# clean:
-# 			$(RM) $(OBJS)
-# 			make clean -C libft
-
-# # Clean all generated files
-# fclean:		clean
-# 			$(RM) $(NAME)
-# 			make fclean -C libft
-
-# # Recompile everything
-# re:			fclean all
-
-# # Debugging info
-# debug:
-# 			@echo "SRCS = $(SRCS)"
-# 			@echo "OBJS = $(OBJS)"
-# 			@echo "LIBFT_OBJS = $(LIBFT_OBJS)"
-
-# # Phony targets
-# .PHONY:		all clean fclean re debug
+.PHONY: all bonus clean fclean re

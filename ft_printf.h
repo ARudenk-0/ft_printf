@@ -53,7 +53,16 @@ typedef struct s_format_info
 	t_flags			f;
 	t_specifiers	s;
 	int				width;
+	int				precision;
+	int				precision_specified;
 }	t_format_info;
+
+// Parse
+int		ft_parse_precision(const char *format, int *i, t_format_info *info);
+
+// New numeric formatting
+int		ft_print_number_signed(long n, t_format_info *info);   // For %d, %i
+int		ft_print_number_unsigned(unsigned long n, t_format_info *info, int base, int uppercase); // For %u, %x, %X
 
 // Main
 int		ft_printf(const char *format, ...);
@@ -84,5 +93,12 @@ void	initialize_data_hex_uppercase(t_hexad_format *format);
 // Numbers
 int		ft_putnbr_fd_count(int n, int fd);
 int		ft_putunbr_fd_count(unsigned int n, int fd);
+
+// ltoa
+char	*ft_ultoa_base(unsigned long n, int base, int uppercase);
+int		ft_print_number_unsigned(unsigned long n, t_format_info *info, int base, int uppercase);
+
+char	*ft_ltoa_no_sign(long n);
+int		ft_print_number_signed(long n, t_format_info *info);
 
 #endif
