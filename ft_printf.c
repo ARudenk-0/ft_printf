@@ -24,7 +24,7 @@ int	ft_print_arg(va_list args, t_format_info *info)
 		char tmp[2];
 		tmp[0] = ch;
 		tmp[1] = '\0';
-		count += ft_format_output(tmp, info);
+		count += ft_print_char_with_flags(tmp[0], info);
 	}
 	else if (info->s.string)
 	{
@@ -39,7 +39,7 @@ int	ft_print_arg(va_list args, t_format_info *info)
 	else if (info->s.decmal || info->s.integr)
 		count += ft_putnbr_fd_count(va_arg(args, int), 1);
 	else if (info->s.unsigned_des)
-		count += ft_putnbr_fd_count(va_arg(args, unsigned int), 1);
+		count += ft_putunbr_fd_count(va_arg(args, unsigned int), 1);
 	else if (info->s.unsignd_lower)
 		count += ft_print_hex_lowercase(va_arg(args, unsigned int), 1);
 	else if (info->s.unsignd_upper)

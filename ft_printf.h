@@ -69,6 +69,7 @@ int		ft_print_hex_uppercase(unsigned long num, int fd);
 
 // Flags / width
 int		ft_format_output(char *str, t_format_info *info);
+int		ft_print_char_with_flags(char c, t_format_info *info);
 
 // Char / string utils
 int		ft_putnchar_fd_count(char c, int n, int fd);
@@ -82,5 +83,6 @@ void	initialize_data_hex_uppercase(t_hexad_format *format);
 
 // Numbers
 int		ft_putnbr_fd_count(int n, int fd);
+int		ft_putunbr_fd_count(unsigned int n, int fd);
 
 #endif
