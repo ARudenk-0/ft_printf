@@ -96,3 +96,32 @@ For /home/arudenko/francinette/tests/printf/printfTester/tests/dot_test.cpp:
 173: 	TEST(144, print(" %.3X ", -99));
 174: 	TEST(145, print(" %.3X ", -100));
 175: 	TEST(146, print(" %.4X ", -101));
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+For /home/arudenko/francinette/tests/printf/printfTester/tests/minus_test.cpp:
+53: 	TEST(27, print(" %-11p %-12p ", INT_MIN, INT_MAX));
+54: 	TEST(28, print(" %-13p %-14p ", ULONG_MAX, -ULONG_MAX));
+
+For /home/arudenko/francinette/tests/printf/printfTester/tests/0_test.cpp:
+39: 	TEST(15, print(" %04d ", -14));
+40: 	TEST(16, print(" %05d ", -15));
+41: 	TEST(17, print(" %06d ", -16));
+47: 	TEST(23, print(" %011d ", LONG_MAX));
+49: 	TEST(25, print(" %013d ", UINT_MAX));
+50: 	TEST(26, print(" %014d ", ULONG_MAX));
+51: 	TEST(27, print(" %015d ", 9223372036854775807LL));
+52: 	TEST(28, print(" %09d %010d %011d %012d %013d %014d %015d", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+70: 	TEST(44, print(" %05i ", -15));
+71: 	TEST(45, print(" %06i ", -16));
+72: 	TEST(46, print(" %01i ", -99));
+78: 	TEST(52, print(" %012i ", LONG_MIN));
+80: 	TEST(54, print(" %014i ", ULONG_MAX));
+81: 	TEST(55, print(" %015i ", 9223372036854775807LL));
+82: 	TEST(56, print(" %09i %010i %011i %012i %013i %014i %015i", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+84: 	TEST(57, print(" %01u ", 0));
+
+For /home/arudenko/francinette/tests/printf/printfTester/tests/dot_test.cpp:
+29: 	TEST(5, print(" %.s ", "-"));
+32: 	TEST(8, print(" %.1s %.2s %.3s %.4s ", " - ", "", "4", ""));
+33: 	TEST(9, print(" %.2s %.3s %.4s %.5s %.1s ", " - ", "", "4", "", "2 "));

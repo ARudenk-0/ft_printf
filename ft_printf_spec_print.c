@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 20:55:07 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/21 21:55:40 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/23 11:30:02 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_print_pointer(void *ptr)
 		ft_putstr_fd("(nil)", 1);
 		return (5);
 	}
-	address = (unsigned long)ptr; 
+	address = (unsigned long)ptr;
 	count += ft_putstr_fd_count("0x", 1);
 	count += ft_print_hex_lowercase(address, 1);
 	return (count);

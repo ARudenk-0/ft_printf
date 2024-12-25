@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 21:54:55 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/22 22:12:47 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/25 20:32:14 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_ultoa_base(unsigned long n, int base, int uppercase)
 }
 
 //TODO: break down into 3 smaller functions
-int	ft_print_number_unsigned(unsigned long n, t_format_info *info, int base, int uppercase)
+int	ft_print_num_unsgnd(unsigned long n, t_format_info *info, int base, int uppercase)
 {
 	int		count;
 	char	*num_part;

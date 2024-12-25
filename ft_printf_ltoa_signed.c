@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 21:50:58 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/22 22:14:04 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/26 00:12:14 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,34 @@ char	*ft_ltoa_no_sign(long n)
 		i++;
 	}
 	buffer[i] = '\0';
-	// Reverse the buffer
-	{
-		int start = 0;
-		int end = i - 1;
-		char c;
-		while (start < end)
-		{
-			c = buffer[start];
-			buffer[start] = buffer[end];
-			buffer[end] = c;
-			start++;
-			end--;
-		}
-	}
+	ft_reverse(buffer, i);
 	result = ft_strdup(buffer);
 	return (result);
 }
 
+char	ft_reverse(char *buffer, int i)
+{
+	int		start;
+	int		end;
+	char	c;
+
+	start = 0;
+	end = i - 1;
+	while (start < end)
+	{
+		c = buffer[start];
+		buffer[start] = buffer[end];
+		buffer[end] = c;
+		start++;
+		end--;
+	}
+	return (*buffer);
+}
 /*
 ** Build the final numeric string for %d / %i with flags: +, space, precision, etc.
 ** Then pass it to ft_format_output().
 ** n can be negative or positive.
 */
-
 //TODO: break down into 3 smaller functions
 int	ft_print_number_signed(long n, t_format_info *info)
 {
@@ -72,56 +76,18 @@ int	ft_print_number_signed(long n, t_format_info *info)
 
 	count = 0;
 	is_neg = 0;
+	final_str = NULL;
 	if (n < 0)
 	{
 		is_neg = 1;
 		n = -n;
 	}
-	// Convert absolute value to decimal string
 	num_part = ft_ltoa_no_sign(n);
-	// If user wrote "%.0d" or similar and n=0 => print nothing for the digits
-	if (info->precision_specified == 1 && info->precision == 0 && num_part[0] == '0' && num_part[1] == '\0')
-	{
-		free(num_part);
-		num_part = ft_strdup("");
-	}
-	// Now apply precision => we may need leading zeros
+	num_part = ft_null(info, num_part);
 	len_num_part = ft_strlen(num_part);
 	if (info->precision_specified == 1 && info->precision > len_num_part)
-	{
-		int needed_zeros = info->precision - len_num_part;
-		char *zero_str = (char *)malloc(sizeof(char) * (needed_zeros + 1));
-		int j = 0;
-		if (zero_str)
-		{
-			while (j < needed_zeros)
-			{
-				zero_str[j] = '0';
-				j++;
-			}
-			zero_str[j] = '\0';
-			// Combine zero_str + num_part
-			{
-				char *old = num_part;
-				num_part = ft_strjoin(zero_str, num_part);
-				free(old);
-			}
-			free(zero_str);
-		}
-	}
-	// Now handle sign / space / plus
-	final_str = NULL;
-	if (is_neg == 1)
-		final_str = ft_strjoin("-", num_part);
-	else if (info->f.plus == 1)
-		final_str = ft_strjoin("+", num_part);
-	else if (info->f.space == 1)
-		final_str = ft_strjoin(" ", num_part);
-	else
-	{
-		// no sign
-		final_str = ft_strdup(num_part);
-	}
+		num_part = ft_zero_pad(info, len_num_part, num_part);
+	ft_signs(info, final_str, num_part, is_neg);
 	free(num_part);
 	// Now we have a fully built string with sign + leading zeros if needed.
 	// Pass it to ft_format_output (which will handle width, '-' alignment, '0' if no precision, etc.)
@@ -130,4 +96,53 @@ int	ft_print_number_signed(long n, t_format_info *info)
 	free(final_str);
 	info->s.string = 0;
 	return (count);
+}
+
+char	*ft_null(t_format_info *info, char *num_part)
+{
+	if (info->precision_specified == 1 && info->precision == 0
+		&& num_part[0] == '0' && num_part[1] == '\0')
+	{
+		free(num_part);
+		num_part = ft_strdup("");
+	}
+	return (num_part);
+}
+
+char	*ft_zero_pad(t_format_info *info, int len_num_part, char *num_part)
+{
+	int		needed_zeros;
+	char	*zero_str;
+	int		j;
+	char	*old;
+
+	needed_zeros = info->precision - len_num_part;
+	zero_str = (char *)malloc(sizeof(char) * (needed_zeros + 1));
+	j = 0;
+	if (zero_str)
+	{
+		while (j < needed_zeros)
+			zero_str[j++] = '0';
+		zero_str[j] = '\0';
+		{
+			old = num_part;
+			num_part = ft_strjoin(zero_str, num_part);
+			free(old);
+		}
+		free(zero_str);
+	}
+	return (num_part);
+}
+
+char	*ft_signs(t_format_info *info, char *final_str, char *num_part, int is_neg)
+{
+	if (is_neg == 1)
+		final_str = ft_strjoin("-", num_part);
+	else if (info->f.plus == 1)
+		final_str = ft_strjoin("+", num_part);
+	else if (info->f.space == 1)
+		final_str = ft_strjoin(" ", num_part);
+	else
+		final_str = ft_strdup(num_part);
+	return(final_str);
 }
