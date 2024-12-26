@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:56:44 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/25 23:13:00 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/26 21:41:41 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	ft_format_output(char *str, t_format_info *info)
 	len = ft_strlen(str);
 	count = 0;
 	effective_len = len;
-	ft_truncate(info, effective_len);
+	// printf("Before truncation:\nLen: %d; Effective len: %d\n", len, effective_len);
+	effective_len = ft_truncate(info, effective_len);
+	// printf("After truncation:\nLen: %d; Effective len: %d\n", len, effective_len);
 	padding_char = ' ';
 	if (info->f.zero == 1 && info->f.minus == 0 && info->precision_specified == 0)
 		padding_char = '0';

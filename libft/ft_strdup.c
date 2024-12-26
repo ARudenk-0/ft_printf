@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:28:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/26 16:29:43 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:51:41 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strdup(const char *s)
 		*dup = '\0';
 		return (start);
 	}
+	else if (dup == NULL)
+		free (dup);
 	return (NULL);
 }
 

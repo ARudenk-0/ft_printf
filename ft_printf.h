@@ -55,6 +55,7 @@ typedef struct s_format_info
 	int				width;
 	int				precision;
 	int				precision_specified;
+	int				is_neg;
 }	t_format_info;
 
 // Parse
@@ -82,7 +83,6 @@ int		ft_print_char_with_flags(char c, t_format_info *info);
 int		ft_truncate(t_format_info *info, int effective_len);
 int		ft_str(t_format_info *info, char *str, int effective_len, int padding);
 
-
 // Char / string utils
 int		ft_putnchar_fd_count(char c, int n, int fd);
 int		ft_putstr_fd_count(char *s, int fd);
@@ -105,14 +105,18 @@ int		ft_print_num_unsgnd(unsigned long n,
 // ltoa signed
 char	*ft_ltoa_no_sign(long n);
 int		ft_print_number_signed(long n, t_format_info *info);
-char	ft_reverse(char *buffer, int i);
-char	*ft_null(t_format_info *info, char *num_part);
-char	*ft_zero_pad(t_format_info *info, int len_num_part, char *num_part);
-char	*ft_signs(t_format_info *info, char *final_str, char *num_part, int is_neg);
+char	*ft_signs(t_format_info *info, char *fin_str, char *n_part);
+long		ft_neg(long n, t_format_info *info);
 
 // ltoa unsigned
 char	*ft_ultoa_base(unsigned long n, int base, int uppercase);
 int		ft_print_num_unsgnd(unsigned long n,
 			t_format_info *info, int base, int upc);
 
+//ltoa utils
+char	*ft_reverse(char *buffer, int i);
+char	*ft_zero_pad(t_format_info *info, int len_num_part, char *num_part);
+char	*ft_null(t_format_info *info, char *num_part);
+void	free_two(char *s1, char *s2);
+char	*ft_prepend(int upcase, char *fin_str, char *num_part);
 #endif

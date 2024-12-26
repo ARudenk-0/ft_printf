@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:05:27 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/25 20:47:46 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:55:06 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	initialize_data(t_format_info *info)
 	info->s = s;
 	info->f = f;
 	info->width = 0;
+	info->is_neg = 0;
 }
 
 void	initialize_data_hex_lowercase(t_hexad_format *format)

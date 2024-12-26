@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 21:38:49 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/25 20:47:09 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/26 22:12:03 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,17 @@ int	ft_parse_precision(const char *format, int *i, t_format_info *info)
 	value = 0;
 	info->precision_specified = 0;
 	info->precision = 0;
+	// printf("Precision is being parsed\n");
 	if (format[*i] == '.')
 	{
 		info->precision_specified = 1;
 		(*i)++;
-		if (ft_isdigit(format[*i]))
+		if (ft_isalpha(format[*i]))
+		{
+			info->precision = 0;
+			// printf("Precision is 0. Nothing to be printed.\n");
+		}
+		else if (ft_isdigit(format[*i]))
 		{
 			while (ft_isdigit(format[*i]))
 			{
@@ -31,11 +37,8 @@ int	ft_parse_precision(const char *format, int *i, t_format_info *info)
 				(*i)++;
 			}
 			info->precision = value;
+			// printf("Precision is: %d\n", info->precision);
 		}
-		else
-			info->precision = 0;
 	}
 	return (0);
 }
-
-//else {info->precision = 0;} // e.g. "%.s" or "%. d", means precision = 0

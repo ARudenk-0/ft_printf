@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 22:19:43 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/21 21:57:03 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:46:07 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_putstr_fd_count(char *s, int fd)
 
 	count = 0;
 	if (!s)
-		return (0); // or print "(null)" or handle as you wish
+		return (0);
 	while (*s)
 	{
 		count += ft_putchar_fd_count(*s, fd);
