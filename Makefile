@@ -6,7 +6,7 @@
 #    By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 19:35:46 by arudenko          #+#    #+#              #
-#    Updated: 2024/12/26 17:30:58 by arudenko         ###   ########.fr        #
+#    Updated: 2024/12/27 18:18:48 by arudenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ARFLAGS 		=	rcs
 RM				=	rm -rf
 
 # Source files
-SRC				=	ft_printf.c ft_printf_utils.c ft_printf_char_utils.c ft_printf_spec_print.c ft_printf_flags_functions.c ft_printf_initializing.c ft_printf_num.c ft_printf_precision.c ft_printf_ltoa_signed.c ft_printf_ltoa_unsigned.c ft_printf_ltoa_utils.c
+SRC				=	ft_printf.c ft_printf_utils.c ft_printf_char_utils.c ft_printf_spec_print.c ft_printf_flags_functions.c ft_printf_initializing.c ft_printf_num.c ft_printf_precision.c ft_printf_ltoa_signed.c ft_printf_ltoa_unsigned.c ft_printf_ltoa_utils.c ft_printf_ltoa_signed_utils.c ft_printf_flags_functions_utils.c
 
 # Object files
 OBJS			=	$(SRC:.c=.o)
@@ -37,12 +37,11 @@ bonus:				all
 
 # Create the combined library
 $(NAME): $(OBJS) $(LIBFT)
-	@echo "Creating $(NAME) with linked libft..."
-	cp $(LIBFT) $(NAME)                    # Copy libft.a to libftprintf.a
-	$(AR) x $(LIBFT)                       # Extract object files from libft.a
-	$(AR) $(ARFLAGS) $(NAME) $(OBJS) *.o   # Add ft_printf objects and extracted libft objects to libftprintf.a
-	$(RM) *.o                              # Remove temporary object files from libft
-
+	cp $(LIBFT) $(NAME)
+	$(AR) x $(LIBFT)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJS) *.o
+	$(RM) *.o
+	$(RM) $(LIBFT_PATH)/*.o  
 # Rule for object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

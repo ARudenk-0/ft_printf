@@ -6,7 +6,7 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:06:02 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/22 22:09:11 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:28:58 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ int	ft_putnbr_fd_count(int n, int fd)
 	return (count);
 }
 
-/*
-** Print an unsigned int in base 10 without sign checks.
-** E.g. ft_putunbr_fd_count(4294967295, 1) => prints "4294967295"
-*/
 int	ft_putunbr_fd_count(unsigned int n, int fd)
 {
 	int	count;

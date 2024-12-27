@@ -6,16 +6,12 @@
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 21:54:55 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/26 16:05:25 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:24:02 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*
-** Convert an unsigned long 'n' to an allocated string in 'base'.
-** If uppercase == 0 => use "0123456789abcdef"
-** If uppercase == 1 => use "0123456789ABCDEF"
-*/
+
 char	*ft_ultoa_base(unsigned long n, int base, int uppercase)
 {
 	char			buffer[64];

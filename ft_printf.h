@@ -21,9 +21,9 @@
 
 typedef struct s_hexad_format
 {
-	char	hex_digits[16]; // 16 instead of 15 to hold "0123456789abcdef"
-	char	buffer[20]; // Buffer to store reversed hex digits
-	int		count; // Character count
+	char	hex_digits[16];
+	char	buffer[20];
+	int		count;
 }	t_hexad_format;
 
 typedef struct s_flags
@@ -48,10 +48,40 @@ typedef struct s_specifiers
 	int	percent_sign;
 }	t_specifiers;
 
+typedef struct s_sign
+{
+	char	sign;
+	char	*digits;
+	char	*zeros;
+	char	*tmp;
+	char	*new_str;
+	size_t	len_tmp;
+}	t_sign;
+
+typedef struct s_print_n
+{
+	int		count;
+	int		negative;
+	char	*digits;
+	char	*with_precision;
+	char	*with_sign;
+	char	*final_str;
+}	t_print_n;
+
+typedef struct s_format_output
+{
+	int	len;
+	int	padding_char;
+	int	padding;
+	int	effective_len;
+	int	is_genuine_string;
+}	t_format_output;
+
 typedef struct s_format_info
 {
 	t_flags			f;
 	t_specifiers	s;
+	t_format_output	o;
 	int				width;
 	int				precision;
 	int				precision_specified;
@@ -83,6 +113,10 @@ int		ft_print_char_with_flags(char c, t_format_info *info);
 int		ft_truncate(t_format_info *info, int effective_len);
 int		ft_str(t_format_info *info, char *str, int effective_len, int padding);
 
+// Flags utils
+void	ft_check_for_str(t_format_info *info);
+void	ft_count_padding(t_format_info *info);
+
 // Char / string utils
 int		ft_putnchar_fd_count(char c, int n, int fd);
 int		ft_putstr_fd_count(char *s, int fd);
@@ -98,25 +132,15 @@ int		ft_putnbr_fd_count(int n, int fd);
 int		ft_putunbr_fd_count(unsigned int n, int fd);
 
 // New numeric formatting
-// int		ft_print_number_signed(long n, t_format_info *info);
 int		ft_print_num_unsgnd(unsigned long n,
 			t_format_info *info, int base, int uppercase);
 
 // ltoa signed
-// char	*ft_ltoa_no_sign(long n);
-// int		ft_print_number_signed(long n, t_format_info *info);
-// char	*ft_signs(t_format_info *info, char *fin_str, char *n_part);
-// long		ft_neg(long n, t_format_info *info);
-
-// ltoa signed
 char	*ft_lltoa_no_sign(long long n);
-char *ft_add_sign(char *digits, t_format_info *info, int negative);
-char *ft_make_zeros(int needed);
-char *ft_apply_precision(char *digits, t_format_info *info);
-char *ft_apply_zero_flag(char *final, t_format_info *info);
-// char	*ft_strjoin_char(char c, char *str);
+char	*ft_apply_precision(char *digits, t_format_info *info);
+char	*ft_if_sign(char *final, int needed);
+char	*ft_apply_zero_flag(char *final, t_format_info *info);
 int		ft_print_number_signed(long long n, t_format_info *info);
-
 
 // ltoa unsigned
 char	*ft_ultoa_base(unsigned long n, int base, int uppercase);
@@ -129,4 +153,8 @@ char	*ft_zero_pad(t_format_info *info, int len_num_part, char *num_part);
 char	*ft_null(t_format_info *info, char *num_part);
 void	free_two(char *s1, char *s2);
 char	*ft_prepend(int upcase, char *fin_str, char *num_part);
+
+// ltoa signed utils
+char	*ft_add_sign(char *digits, t_format_info *info, int negative);
+char	*ft_make_zeros(int needed);
 #endif
