@@ -73,7 +73,7 @@ int		ft_print_arg_csp(va_list args, t_format_info *info, int count);
 int		ft_print_arg_unsigned(va_list args, t_format_info *info, int count);
 
 // Specifiers
-int		ft_print_pointer(void *ptr);
+int		ft_print_pointer(void *ptr, t_format_info *info);
 int		ft_print_hex_lowercase(unsigned long num, int fd);
 int		ft_print_hex_uppercase(unsigned long num, int fd);
 
@@ -98,15 +98,25 @@ int		ft_putnbr_fd_count(int n, int fd);
 int		ft_putunbr_fd_count(unsigned int n, int fd);
 
 // New numeric formatting
-int		ft_print_number_signed(long n, t_format_info *info);
+// int		ft_print_number_signed(long n, t_format_info *info);
 int		ft_print_num_unsgnd(unsigned long n,
 			t_format_info *info, int base, int uppercase);
 
 // ltoa signed
-char	*ft_ltoa_no_sign(long n);
-int		ft_print_number_signed(long n, t_format_info *info);
-char	*ft_signs(t_format_info *info, char *fin_str, char *n_part);
-long		ft_neg(long n, t_format_info *info);
+// char	*ft_ltoa_no_sign(long n);
+// int		ft_print_number_signed(long n, t_format_info *info);
+// char	*ft_signs(t_format_info *info, char *fin_str, char *n_part);
+// long		ft_neg(long n, t_format_info *info);
+
+// ltoa signed
+char	*ft_lltoa_no_sign(long long n);
+char *ft_add_sign(char *digits, t_format_info *info, int negative);
+char *ft_make_zeros(int needed);
+char *ft_apply_precision(char *digits, t_format_info *info);
+char *ft_apply_zero_flag(char *final, t_format_info *info);
+// char	*ft_strjoin_char(char c, char *str);
+int		ft_print_number_signed(long long n, t_format_info *info);
+
 
 // ltoa unsigned
 char	*ft_ultoa_base(unsigned long n, int base, int uppercase);

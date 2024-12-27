@@ -15,13 +15,14 @@
 int	ft_print_arg(va_list args, t_format_info *info)
 {
 	int		count;
+	int		n;
 
 	count = 0;
 	count += ft_print_arg_csp(args, info, count);
 	if (info->s.decmal || info->s.integr)
 	{
-		printf("Argument before passing it anywhere: %ld\n", va_arg(args, long));
-		count += ft_print_number_signed((long)va_arg(args, long), info);
+		n = va_arg(args, int);
+		count += ft_print_number_signed((long long)n, info);
 	}
 	else if (info->s.unsigned_des)
 		count += ft_print_num_unsgnd((unsigned long)va_arg(args, unsigned int),

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf1.c                                       :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arudenko <arudenko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:05:43 by arudenko          #+#    #+#             */
-/*   Updated: 2024/12/25 20:44:03 by arudenko         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:45:07 by arudenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_print_arg_csp(va_list args, t_format_info *info, int count)
 	else if (info->s.pointer)
 	{
 		ptr = va_arg(args, void *);
-		count += ft_print_pointer(ptr);
+		count += ft_print_pointer(ptr, info);
 	}
 	return (count);
 }
